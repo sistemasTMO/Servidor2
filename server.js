@@ -6,6 +6,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use(cors({
+  origin: 'http://localhost:3001',
+}));
 const PORT = 3306;
 
 // Conexión a MySQL
