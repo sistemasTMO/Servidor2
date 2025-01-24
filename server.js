@@ -26,6 +26,10 @@ let pool = mysql.createPool(dbConfig);
   console.log('Conectado a la base de datos');
 })();
 
+app.get('/', (req, res) => {
+  res.send('¡API funcionando correctamente!');
+});
+
 // Ruta de autenticación
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
