@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql2/promise');  // Esto es necesario para usar promesas
+require('dotenv').config();
 
 const app = express();
 app.use(cors());
@@ -12,13 +13,15 @@ app.use(cors({
 const PORT = 3306;
 
 // Conexión a MySQL
+
 const dbConfig = {
-  host: 'p3plzcpnl506561.prod.phx3.secureserver.net', // Dominio del servidor
-  user: 'sistemastmo', // Usuario de la base de datos
-  password: 'sisTMO2025*', // Contraseña del usuario
-  database: 'produccionplaneacion', // Nombre de la base de datos
-  port: 3306 // Puerto de MySQL (generalmente 3306)
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT || 3306
 };
+
 let db;
 let pool = mysql.createPool(dbConfig);
 
