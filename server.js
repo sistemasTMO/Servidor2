@@ -7,11 +7,13 @@ app.use(express.json());
 const PORT = 3306;
 
 const corsOptions = {
-  origin: 'http://localhost:3000', // Cambia esto por el dominio de tu frontend cuando esté en producción
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  origin: 'http://localhost:3000', // Especificar el origen del frontend
+  methods: ['GET', 'POST'], // Métodos permitidos
+  allowedHeaders: ['Content-Type'], // Los encabezados que el frontend puede enviar
 };
+
 app.use(cors(corsOptions));
+
 
 const dbConfig = {
   host: 'p3plzcpnl506561.prod.phx3.secureserver.net', 
