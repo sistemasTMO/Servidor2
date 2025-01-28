@@ -15,12 +15,13 @@ app.use(cors({
 
 // Configuración de la base de datos
 const dbConfig = {
-  host: 'localhost', // Cambia esto si tu base de datos está en otro lugar
-  user: 'tu_usuario',
-  password: 'tu_contraseña',
-  database: 'tu_base_de_datos',
-  port: 3306
+  host: 'p3plzcpnl506561.prod.phx3.secureserver.net', // Dominio del servidor
+  user: 'sistemastmo', // Usuario de la base de datos
+  password: 'sisTMO2025*', // Contraseña del usuario
+  database: 'produccionplaneacion',
+  port: 3306 
 };
+
 let db;
 // Conectar a la base de datos
 (async () => {
