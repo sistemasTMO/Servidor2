@@ -5,11 +5,13 @@ const app = express();
 
 app.use(express.json());
 
-app.use(cors({
-  origin: '*',
+const corsOptions = {
+  origin: ['http://localhost:3000', 'https://miapp.com'], // Agrega el dominio de tu frontend aquí
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+};
+
+app.use(cors(corsOptions));
 
 const PORT = 3306;
 
@@ -634,8 +636,6 @@ app.post('/agregar-nueva-ruta', (req, res) => {
     res.status(200).json({ message: 'Ruta added successfully', results });
   });
 });
-app.use(cors(corsOptions));
-
 
 //Puerto a escuchar
 app.listen(PORT, () => {
