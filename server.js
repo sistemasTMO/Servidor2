@@ -13,7 +13,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
+app.options('*', cors(corsOptions));  // Asegúrate de permitir las solicitudes OPTIONS de todos los orígenes
 
 const dbConfig = {
   host: 'p3plzcpnl506561.prod.phx3.secureserver.net', 
