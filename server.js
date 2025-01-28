@@ -2,32 +2,27 @@ const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql2/promise');  // Esto es necesario para usar promesas
 const app = express();
-app.use(cors());
 app.use(express.json());
-
-const corsOptions = {
-  origin: 'http://localhost:3000', // Permite solicitudes de esta URL
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type'],
-};
-
-app.use(cors(corsOptions));
-
 
 const PORT = 3306;
 
-// Conexión a MySQL
+const corsOptions = {
+  origin: 'http://localhost:3000', // Cambia esto por el dominio de tu frontend cuando esté en producción
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+app.use(cors(corsOptions));
+
 const dbConfig = {
-  host: 'p3plzcpnl506561.prod.phx3.secureserver.net', // Dominio del servidor
-  user: 'sistemastmo', // Usuario de la base de datos
-  password: 'sisTMO2025*', // Contraseña del usuario
-  database: 'produccionplaneacion', // Nombre de la base de datos
-  port: 3306 // Puerto de MySQL (generalmente 3306)
+  host: 'p3plzcpnl506561.prod.phx3.secureserver.net', 
+  user: 'sistemastmo', 
+  password: 'sisTMO2025*', 
+  database: 'produccionplaneacion',
+  port: 3306
 };
 
 let db;
 let pool = mysql.createPool(dbConfig);
-
 
 // Inicializa la conexión a la base de datos
 (async () => {
