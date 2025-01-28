@@ -1,30 +1,26 @@
 const express = require('express');
 const cors = require('cors');
-const mysql = require('mysql2/promise');  // Esto es necesario para usar promesas
+const mysql = require('mysql2/promise');
 const app = express();
+
 app.use(express.json());
 
-const PORT = 3306;
-
-const corsOptions = {
-  origin: 'http://localhost:3000', // Origen del cliente
-  methods: ['GET', 'POST', 'OPTIONS'], // Asegúrate de incluir OPTIONS
-  allowedHeaders: ['Content-Type', 'Authorization'], // Permitir estos encabezados
+// Habilitar CORS para permitir solicitudes desde localhost:3000
+app.use(cors({
+  origin: 'http://localhost:3000', // Especifica el origen de tu frontend
+  methods: ['GET', 'POST', 'OPTIONS'], // Métodos permitidos
+  allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
   credentials: true,  // Si necesitas enviar cookies o encabezados de autenticación
-};
+}));
 
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));  // Permite solicitudes OPTIONS de cualquier ruta
-
-
+// Configuración de la base de datos
 const dbConfig = {
-  host: 'p3plzcpnl506561.prod.phx3.secureserver.net', 
-  user: 'sistemastmo', 
-  password: 'sisTMO2025*', 
-  database: 'produccionplaneacion',
+  host: 'localhost', // Cambia esto si tu base de datos está en otro lugar
+  user: 'tu_usuario',
+  password: 'tu_contraseña',
+  database: 'tu_base_de_datos',
   port: 3306
 };
-
 let db;
 // Conectar a la base de datos
 (async () => {
