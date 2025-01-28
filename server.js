@@ -6,11 +6,11 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-  origin: 'http://localhost:3000', // O '*' para permitir todos los orígenes
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
-app.use(cors(corsOptions));
+
 const PORT = 3306;
 
 // Conexión a MySQL
@@ -634,6 +634,8 @@ app.post('/agregar-nueva-ruta', (req, res) => {
     res.status(200).json({ message: 'Ruta added successfully', results });
   });
 });
+app.use(cors(corsOptions));
+
 
 //Puerto a escuchar
 app.listen(PORT, () => {
