@@ -7,7 +7,9 @@ app.use(cors());
 app.use(express.json());
 
 app.use(cors({
-  origin: 'http://localhost:3001',
+  origin: 'http://localhost:3000', // O '*' para permitir todos los orígenes
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 const PORT = 3306;
 
