@@ -7,13 +7,15 @@ app.use(express.json());
 const PORT = 3306;
 
 const corsOptions = {
-  origin: 'http://localhost:3000', // Especificar el origen del frontend
-  methods: ['GET', 'POST'], // Métodos permitidos
-  allowedHeaders: ['Content-Type'], // Los encabezados que el frontend puede enviar
+  origin: 'http://localhost:3000', // Origen del cliente
+  methods: ['GET', 'POST', 'OPTIONS'], // Asegúrate de incluir OPTIONS
+  allowedHeaders: ['Content-Type', 'Authorization'], // Permitir estos encabezados
+  credentials: true,  // Si necesitas enviar cookies o encabezados de autenticación
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));  // Asegúrate de permitir las solicitudes OPTIONS de todos los orígenes
+app.options('*', cors(corsOptions));  // Permite solicitudes OPTIONS de cualquier ruta
+
 
 const dbConfig = {
   host: 'p3plzcpnl506561.prod.phx3.secureserver.net', 
