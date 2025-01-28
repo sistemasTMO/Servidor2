@@ -26,6 +26,16 @@ const dbConfig = {
 };
 
 let db;
+// Conectar a la base de datos
+(async () => {
+  try {
+    db = await mysql.createConnection(dbConfig);
+    console.log('Conexión a la base de datos establecida con éxito');
+  } catch (err) {
+    console.error('Error al conectar con la base de datos:', err);
+  }
+})();
+
 let pool = mysql.createPool(dbConfig);
 
 // Inicializa la conexión a la base de datos
