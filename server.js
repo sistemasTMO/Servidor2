@@ -44,9 +44,17 @@ let pool = mysql.createPool(dbConfig);
   console.log('Conectado a la base de datos');
 })();
 
-app.get('/', (req, res) => {
-  res.send('¡API funcionando correctamente!');
+app.get('/', async (req, res) => {
+  try {
+    // Prueba la conexión a la base de datos con una consulta simple
+    await db.query('SELECT 1');
+    res.send('¡API funcionando correctamente y la base de datos está conectada!');
+  } catch (err) {
+    console.error('Error al conectar con la base de datos:', err);
+    res.status(500).send('La API está funcionando, pero no se pudo conectar con la base de datos.');
+  }
 });
+
 
 // Ruta de autenticación
 app.post('/login', async (req, res) => {
