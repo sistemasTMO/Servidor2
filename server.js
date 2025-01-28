@@ -3,7 +3,6 @@ const cors = require('cors');
 const mysql = require('mysql2/promise');  // Esto es necesario para usar promesas
 const app = express();
 
-app.use(cors());
 app.use(express.json());
 
 app.use(cors({
@@ -11,6 +10,7 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
+app.use(cors(corsOptions));
 const PORT = 3306;
 
 // Conexión a MySQL
