@@ -6,12 +6,13 @@ app.use(cors());
 app.use(express.json());
 
 const corsOptions = {
-  origin: ['http://localhost:3000', 'https://planeacionproduccion.com.mx'], // Agrega el dominio de tu frontend aquí
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  origin: 'http://localhost:3000', // Permite solicitudes de esta URL
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type'],
 };
 
 app.use(cors(corsOptions));
+
 
 const PORT = 3306;
 
