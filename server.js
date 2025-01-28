@@ -42,22 +42,30 @@ app.get('/', (req, res) => {
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
+  console.log('Login attempt for:', email);  // Log para ver el email recibido
+
   const query = 'SELECT * FROM usuarios WHERE email = ?';
   try {
     const [results] = await db.execute(query, [email]);
+    
     if (results.length === 0) {
+      console.log('User not found');
       return res.status(401).json({ error: 'Usuario no encontrado' });
     }
 
     const user = results[0];
+    console.log('User found:', user);  // Log para ver el usuario encontrado
+
     // Verificar si la contraseña coincide
     if (user.password !== password) {
+      console.log('Incorrect password');
       return res.status(401).json({ error: 'Contraseña incorrecta' });
     }
 
+    console.log('User authenticated successfully');
     res.json({ area: user.area });
   } catch (err) {
-    console.error('Error en la base de datos:', err);
+    console.error('Database error:', err);  // Log del error de la base de datos
     return res.status(500).json({ error: 'Error en la base de datos' });
   }
 });
