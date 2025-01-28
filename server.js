@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-  origin: ['http://localhost:3000', 'https://miapp.com'], // Agrega el dominio de tu frontend aquí
+  origin: ['http://localhost:3000', 'https://planeacionproduccion.com.mx'], // Agrega el dominio de tu frontend aquí
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
