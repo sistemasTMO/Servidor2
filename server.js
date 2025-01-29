@@ -45,6 +45,17 @@ let pool = mysql.createPool(dbConfig);
   console.log('Conectado a la base de datos');
 })();
 
+app.get('/test-db', async (req, res) => {
+  try {
+    const connection = await mysql.createConnection(dbConfig);
+    await connection.execute('SELECT 1'); // Prueba de consulta
+    res.send('✅ Conexión exitosa a la base de datos');
+  } catch (error) {
+    console.error('❌ Error en la conexión:', error);
+    res.status(500).send('❌ No se pudo conectar a la base de datos');
+  }
+});
+
 app.get('/', async (req, res) => {
   try {
     // Prueba la conexión a la base de datos con una consulta simple
