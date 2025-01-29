@@ -1,35 +1,39 @@
 const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql2/promise');
-const app = express();
 
+const app = express();
 app.use(express.json());
 
-// Habilitar CORS para permitir solicitudes desde localhost:3000
-app.use(cors({
-  origin: 'http://localhost:3000', // Especifica el origen de tu frontend
-  methods: ['GET', 'POST', 'OPTIONS'], // Métodos permitidos
-  allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
-  credentials: true,  // Si necesitas enviar cookies o encabezados de autenticación
-}));
+const PORT = process.env.PORT || 3001; // Asegurar que PORT tenga un valor
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 // Configuración de la base de datos
 const dbConfig = {
-  host: 'p3plzcpnl506561.prod.phx3.secureserver.net', // Dominio del servidor
-  user: 'sistemastmo', // Usuario de la base de datos
-  password: 'sisTMO2025*', // Contraseña del usuario
+  host: 'p3plzcpnl506561.prod.phx3.secureserver.net',
+  user: 'sistemastmo',
+  password: 'sisTMO2025*',
   database: 'produccionplaneacion',
-  port: 3306 
+  port: 3306
 };
 
+// Prueba de conexión a la base de datos
 let db;
-// Conectar a la base de datos
 (async () => {
   try {
     db = await mysql.createConnection(dbConfig);
-    console.log('Conexión a la base de datos establecida con éxito');
-  } catch (err) {
-    console.error('Error al conectar con la base de datos:', err);
+    console.log('✅ Conectado a la base de datos');
+  } catch (error) {
+    console.error('❌ Error al conectar a la base de datos:', error);
   }
 })();
 
