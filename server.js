@@ -19,13 +19,12 @@ app.options('*', cors(corsOptions));
 
 // Configuración de la base de datos
 const dbConfig = {
-  host: 'p3plzcpnl506561.prod.phx3.secureserver.net',
-  user: 'sistemastmo',
-  password: 'sisTMO2025*',
-  database: 'produccionplaneacion',
-  port: 3306
+  host: process.env.DB_HOST,        // Obtiene el valor de la variable de entorno DB_HOST
+  user: process.env.DB_USER,        // Obtiene el valor de la variable de entorno DB_USER
+  password: process.env.DB_PASSWORD,  // Obtiene el valor de la variable de entorno DB_PASSWORD
+  database: process.env.DB_NAME,    // Obtiene el valor de la variable de entorno DB_NAME
+  port: process.env.DB_PORT || 3306 // Si no existe la variable DB_PORT, usará 3306 por defecto
 };
-
 // Prueba de conexión a la base de datos
 let db;
 (async () => {
