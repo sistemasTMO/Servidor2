@@ -5,25 +5,25 @@ const mysql = require('mysql2/promise');
 const app = express();
 app.use(express.json());
 
-const PORT = process.env.PORT || 3001; // Asegurar que PORT tenga un valor
+const PORT = process.env.PORT || 3001;
 
 const corsOptions = {
-  origin: ['http://localhost:3000', 'https://planeacionproduccion.com.mx'], 
+  origin: ['http://localhost:3000', 'https://planeacionproduccion.com.mx'],
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 };
- 
+
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
 
 // Configuración de la base de datos
 const dbConfig = {
-  host: process.env.DB_HOST,        // Obtiene el valor de la variable de entorno DB_HOST
-  user: process.env.DB_USER,        // Obtiene el valor de la variable de entorno DB_USER
-  password: process.env.DB_PASSWORD,  // Obtiene el valor de la variable de entorno DB_PASSWORD
-  database: process.env.DB_NAME,    // Obtiene el valor de la variable de entorno DB_NAME
-  port: process.env.DB_PORT || 3306 // Si no existe la variable DB_PORT, usará 3306 por defecto
+  host: process.env.DB_HOST || 'p3plzcpnl506561.prod.phx3.secureserver.net',
+  user: process.env.DB_USER || 'sistemastmo',
+  password: process.env.DB_PASSWORD || 'sisTMO2025*',
+  database: process.env.DB_NAME || 'produccionplaneacion',
+  port: process.env.DB_PORT || 3306
 };
 // Prueba de conexión a la base de datos
 let db;
@@ -38,6 +38,17 @@ let db;
 
 let connection;
 
+async function createDBConnection() {
+  try {
+    const connection = await mysql.createConnection(dbConfig);
+    console.log("Conexión a la base de datos establecida.");
+    return connection;
+  } catch (error) {
+    console.error("Error al conectar con la base de datos:", error);
+    throw error; // Lanza el error para manejarlo en otro lugar
+  }
+}
+
 async function getDBConnection() {
   if (!connection || connection.state === 'disconnected') {
     try {
@@ -48,6 +59,20 @@ async function getDBConnection() {
     }
   }
   return connection;
+}
+
+// Función para manejar las consultas con reconexión
+async function queryDB(query, params) {
+  let connection;
+  try {
+    connection = await createDBConnection(); // Crea una nueva conexión a la base de datos
+    const [rows] = await connection.execute(query, params); // Ejecuta la consulta
+    return rows;
+  } catch (error) {
+    console.error("Error al ejecutar la consulta:", error);
+    if (connection) connection.end(); // Aseguramos que la conexión se cierre
+    throw error; // Lanza el error para manejarlo en el código que llama a esta función
+  }
 }
 
 let pool = mysql.createPool(dbConfig);
