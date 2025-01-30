@@ -36,6 +36,20 @@ let db;
   }
 })();
 
+let connection;
+
+async function getDBConnection() {
+  if (!connection || connection.state === 'disconnected') {
+    try {
+      connection = await mysql.createConnection(dbConfig);
+      console.log('Conexión establecida correctamente');
+    } catch (error) {
+      console.error('Error al intentar conectar:', error);
+    }
+  }
+  return connection;
+}
+
 let pool = mysql.createPool(dbConfig);
 
 // Inicializa la conexión a la base de datos
