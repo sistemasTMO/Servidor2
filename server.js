@@ -8,7 +8,7 @@ app.use(express.json());
 const PORT = process.env.PORT || 3001; // Asegurar que PORT tenga un valor
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: ['http://localhost:3000', 'https://planeacionproduccion.com.mx'],
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
