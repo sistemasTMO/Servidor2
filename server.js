@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3001;
  
 const corsOptions = {
   origin: ['http://localhost:3000', 'https://planeacionproduccion.com.mx'],
-  methods: ['GET', 'POST', 'OPTIONS', 'DELETE', 'PUT'],
+  methods: ['GET', 'POST', 'OPTIONS', 'DELETE', 'PUT'], 
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 };
